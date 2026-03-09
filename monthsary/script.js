@@ -66,14 +66,38 @@
       const v = n % 100;
       return n + (s[(v - 20) % 10] || s[v] || s[0]);
     };
+
+    const calculateMonthsBetween = (startDate, endDate) => {
+      // Ensure the dates are Date objects and in the correct order (swap if necessary)
+      let d1 = new Date(startDate);
+      let d2 = new Date(endDate);
+
+      if (d1 > d2) {
+        [d1, d2] = [d2, d1]; // Swap dates if d1 is after d2
+      }
+
+      let years = d2.getFullYear() - d1.getFullYear();
+      let months = d2.getMonth() - d1.getMonth();
+      let days = d2.getDate() - d1.getDate();
+
+      // Adjust month count if the end date's day is earlier than the start date's day
+      if (days < 0) {
+        months--;
+      }
+
+      // Final calculation of total months
+      let totalMonths = years * 12 + months;
+
+      return totalMonths;
+    }
   
     const now = new Date();
     const monthsaryDate = new Date("2019-09-24T00:00:00")
-    let months;
+    //let months;
 
-    months = (now.getFullYear() - monthsaryDate.getFullYear()) * 12;
-    months -= monthsaryDate.getMonth();
-    months += now.getMonth();
+    //months = (now.getFullYear() - monthsaryDate.getFullYear()) * 12;
+    //months -= monthsaryDate.getMonth();
+    //months += now.getMonth();
 
-    document.getElementById("counter").textContent = getOrdinalSuffix(months);
+    document.getElementById("counter").textContent = getOrdinalSuffix(calculateMonthsBetween(now,monthsaryDate));
   })();
