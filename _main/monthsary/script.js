@@ -57,6 +57,7 @@
       }, numOfFlowers * 150);
     }
     
+    
     document.body.addEventListener('click', () => {
       growGarden();
     });
